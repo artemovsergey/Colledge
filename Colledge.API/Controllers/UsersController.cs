@@ -20,7 +20,7 @@ public class UsersController : ControllerBase
         _mediator = mediatr;
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAllUsers()
     {
