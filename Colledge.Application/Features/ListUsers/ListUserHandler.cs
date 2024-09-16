@@ -9,27 +9,26 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Colledge.Application.Features.ListUsers
-{
-    public class ListUsersHandler : IRequestHandler<ListUsersRequest, IEnumerable<User>>
-    { 
-        private readonly ColledgeContext _db;
-        public ListUsersHandler(ColledgeContext db)
-        {
-            _db = db;
-        }
+namespace Colledge.Application.Features.ListUsers;
 
-        public async Task<IEnumerable<User>> Handle(ListUsersRequest request, CancellationToken cancellationToken)
+public class ListUsersHandler : IRequestHandler<ListUsersRequest, IEnumerable<User>>
+{ 
+    private readonly ColledgeContext _db;
+    public ListUsersHandler(ColledgeContext db)
+    {
+        _db = db;
+    }
+
+    public async Task<IEnumerable<User>> Handle(ListUsersRequest request, CancellationToken cancellationToken)
+    {
+        var listUsers = await _db.Users.ToListAsync();
+        if (listUsers != null)
         {
-            var listUsers = await _db.Users.ToListAsync();
-            if (listUsers != null)
-            {
-                return listUsers;
-            }
-            else
-            {
-                return null;
-            }
+            return listUsers;
+        }
+        else
+        {
+            return null;
         }
     }
 }
